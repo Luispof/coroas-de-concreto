@@ -53,7 +53,7 @@ O desenvolvimento é orientado por tarefas numeradas no formato `CDC-XXX` (ex.: 
 
 - **Linguagem Padrão:** TypeScript com tipagem estrita (`strict: true`). Evite `any`; prefira tipos explícitos, interfaces claras e validação de esquemas na fronteira da aplicação.
 - **Frontend (Next.js):** Foco em experiência cinematográfica, performance, acessibilidade, componentização limpa e separação entre componentes de UI e lógica de estado/dados.
-- **Backend (NestJS):** Arquitetura modular com separação clara de responsabilidades (Controllers, Services, Domain/Use Cases, Repositories/DTOs).
+- **Backend (NestJS):** No MVP, utilize Controllers, Services, DTOs e acesso Prisma, com separação clara de responsabilidades. Não crie camadas genéricas de Repository ou Use Case sem necessidade concreta.
 - **Proporcionalidade:** No MVP, use apenas as camadas necessárias. Não crie abstrações genéricas, pacotes compartilhados ou módulos sem uso concreto.
 - **Compatibilidade:** Preserve Windows e macOS; use caminhos relativos, imports com capitalização exata e comandos portáveis. Scripts futuros devem evitar dependência exclusiva de Bash ou PowerShell.
 - **Documentação Arquitetural:**

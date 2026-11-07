@@ -66,3 +66,21 @@ O desenvolvimento é orientado por tarefas numeradas no formato `CDC-XXX` (ex.: 
 
 - Mantenha este arquivo (`AGENTS.md`), a documentação em `docs/` e as configurações compartilháveis em `.vscode/` sempre atualizados à medida que a arquitetura evoluir.
 - Preserve comentários, docstrings e decisões documentadas em ADRs anteriores, a menos que uma nova ADR substitua explicitamente uma decisão antiga.
+
+## 6. Testes automatizados e prevenção de regressões
+
+- Toda alteração de comportamento, incluindo funcionalidades, correções, refatorações e contratos, deve incluir ou preservar testes automatizados adequados ao risco e à responsabilidade da alteração.
+- Funcionalidades novas precisam de testes dos comportamentos relevantes. Correções devem incluir, sempre que viável, reprodução automatizada do bug e proteção contra regressão; documente a justificativa quando não for viável.
+- Escolha testes unitários, de integração e E2E conforme o caso. Não crie testes artificiais para métricas. Preserve os testes existentes em refatorações.
+- Não remova, ignore ou enfraqueça testes para passar checks. Não use `skip`, `only` ou equivalentes para ocultar falhas.
+- Cada PR deve executar os testes existentes e os novos aplicáveis, além de lint, typecheck e build. Falhas devem ser corrigidas ou registradas como bloqueadores, nunca ocultadas; nenhum PR pode ser integrado com checks obrigatórios falhando.
+- Os agentes são responsáveis por demonstrar os comportamentos cobertos e informar limitações de infraestrutura. A estratégia e os comandos devem permanecer documentados em `docs/architecture/testing.md`.
+
+## 7. CI/CD e aprovação de integração
+
+- CI deve executar automaticamente em Pull Requests para `main` e em pushes para `main`, com instalação por lockfile congelado, lint, typecheck, testes e build de frontend/backend. Etapas obrigatórias não podem usar `continue-on-error`.
+- Workflows devem usar privilégios mínimos, Actions confiáveis fixadas por SHA, não expor credenciais a PRs não confiáveis e nunca publicar conteúdo privado de RPG. Não executar código de PR com `pull_request_target`.
+- Checks obrigatórios e proteção da `main` devem ser documentados; alterações remotas exigem autorização explícita.
+- CD será introduzido após definir hospedagem, com staging e produção separados. Produção exige aprovação explícita do responsável até aprovação formal de outra política. Falhas de deploy devem impedir promoção e permitir recuperação ou rollback.
+- Na CDC-004, CD é apenas documentação: não criar deploy automático, ambientes remotos ou credenciais de produção.
+- Codex implementa e valida; Antigravity realiza revisão independente; o responsável aprova a integração.

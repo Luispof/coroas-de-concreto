@@ -1,0 +1,39 @@
+{
+  "name": "@cdc/api",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "pnpm db:ensure && nest start --watch --builder tsc",
+    "build": "pnpm db:ensure && tsc --project tsconfig.json",
+    "start": "node dist/main.js",
+    "lint": "eslint . --max-warnings 0",
+    "typecheck": "pnpm db:ensure && tsc --project tsconfig.json --noEmit && tsc --project tsconfig.test.json --noEmit",
+    "test": "pnpm db:ensure && node scripts/run-tests.mjs",
+    "test:e2e": "pnpm db:ensure && node scripts/run-tests.mjs --e2e",
+    "db:validate": "prisma validate",
+    "db:generate": "node scripts/ensure-prisma-client.mjs --force",
+    "db:ensure": "node scripts/ensure-prisma-client.mjs",
+    "db:check": "pnpm build && node --env-file-if-exists=.env dist/prisma/check-database.js"
+  },
+  "dependencies": {
+    "@nestjs/common": "12.4.0",
+    "@nestjs/config": "12.1.1",
+    "@nestjs/core": "12.4.0",
+    "@nestjs/platform-express": "12.4.0",
+    "@prisma/adapter-pg": "7.10.1",
+    "@prisma/client": "7.10.1",
+    "reflect-metadata": "0.2.2",
+    "rxjs": "7.8.2"
+  },
+  "devDependencies": {
+    "@eslint/js": "9.39.5",
+    "@nestjs/cli": "12.0.12",
+    "@types/node": "24.10.0",
+    "dotenv": "18.0.9",
+    "eslint": "9.39.5",
+    "prisma": "7.10.1",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.72.1"
+  }
+}

@@ -1,0 +1,12 @@
+packages:
+  - apps/*
+
+strictPeerDependencies: true
+engineStrict: true
+saveExact: true
+verifyDepsBeforeRun: error
+
+# Explicitly reviewed lifecycle scripts; keep unknown builds blocked.
+allowBuilds:
+  '@prisma/engines@7.10.1': true
+  'prisma@7.10.1': true

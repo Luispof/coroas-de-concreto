@@ -14,15 +14,16 @@ Os arquivos devem seguir o formato sequencial:
 
 ## Decisões registradas
 
-Decisões aceitas na CDC-003:
+Decisões aceitas:
 
 - [0001 — Monorepo pnpm](./0001-monorepo-pnpm.md)
 - [0002 — Fronteiras Next.js e NestJS](./0002-fronteiras-web-api.md)
 - [0003 — Catálogo público e API REST de leitura](./0003-catalogo-publico-rest.md)
 - [0004 — PostgreSQL e Prisma](./0004-postgresql-prisma.md)
 - [0005 — Git e compatibilidade multiplataforma](./0005-git-multiplataforma.md)
+- [0006 — Testes de regressão e CI/CD](./0006-testes-ci-cd.md)
 
-As decisões refletem a aprovação explícita da CDC-003, não uma implementação concluída. Novas decisões devem registrar alternativas e critérios de revisão; uma substituição deve vincular o ADR anterior e explicar a mudança.
+As ADRs 0001–0005 refletem a aprovação da CDC-003 e a ADR 0006 registra a política permanente aprovada na CDC-004. O status aceito não comprova execução remota ou encerramento de todas as validações. Novas decisões devem registrar alternativas e critérios de revisão; uma substituição deve vincular o ADR anterior e explicar a mudança.
 
 ## Template Base
 

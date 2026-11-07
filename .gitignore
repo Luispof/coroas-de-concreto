@@ -72,3 +72,8 @@ Desktop.ini
 .cache/
 tmp/
 temp/
+
+# Compiled tests and generated Prisma client
+dist-test/
+apps/api/src/generated/
+apps/web/next-env.d.ts

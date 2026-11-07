@@ -49,7 +49,7 @@ test('test startup ignores a present env file; normal startup still loads it and
     else process.env.DATABASE_URL = previousUrl;
     if (previousPort === undefined) delete process.env.PORT;
     else process.env.PORT = previousPort;
-    await rm(fixture, { recursive: true, force: true });
+    await rm(fixture, { recursive: true, force: true, maxRetries: 5, retryDelay: 100 });
   }
 });
 

@@ -70,9 +70,15 @@ pnpm db:check
 pnpm db:down
 ```
 
-`db:check` gera e compila o client e executa `SELECT 1` pelo Prisma/adapter PostgreSQL, sem alterar schema ou dados. `db:down` preserva o volume; não usar `down -v` para rotina de parada. O volume usa `/var/lib/postgresql`, adequado à imagem PostgreSQL 18. A imagem está fixada por tag de versão; sua execução e atualização devem ser verificadas quando Docker estiver disponível.
+`db:check` compila a API e executa `SELECT 1` pelo Prisma/adapter PostgreSQL, sem alterar schema ou dados. O Node 24 usa `--env-file-if-exists=.env`: arquivo ausente é permitido e `DATABASE_URL` pode vir exclusivamente do processo; valores do processo prevalecem sobre o arquivo. URL ausente ou conexão inválida resulta em saída de erro sem imprimir credenciais. `db:down` preserva o volume; não usar `down -v` para rotina de parada. O volume usa `/var/lib/postgresql`, adequado à imagem PostgreSQL 18. A imagem está fixada por tag de versão; sua execução e atualização devem ser verificadas quando Docker estiver disponível.
 
 O schema não contém entidades, migrations vazias ou seeds. O client gerado é ignorado. O healthcheck é liveness HTTP, não readiness do banco; não conecta nem importa o client Prisma.
+
+## Geração Prisma reproduzível
+
+`dev`, `typecheck`, `test`, `test:e2e` e `build` da API executam `db:ensure` antes de usar TypeScript. Esse comando gera o client se a saída estiver ausente, incompleta, alterada ou desatualizada; não exige ordem manual em checkout limpo. Um hash local em `.cache` considera schema, configuração, manifesto, versões instaladas Prisma/client, script de geração e conteúdo da saída. A geração limpa somente a pasta descartável `src/generated/prisma`, nunca schema, migrations ou dados.
+
+Com entrada e saída inalteradas, comandos seguintes reutilizam o client sem repetir geração. `pnpm db:generate` é a operação explícita de regeneração forçada e atualiza o mesmo hash, portanto a etapa explícita do CI não é repetida por typecheck/test/build. A validação `db:validate` permanece independente, sem conexão ao banco. Nenhuma dependência foi adicionada para cache, descoberta de testes ou carregamento opcional de ambiente.
 
 ## Qualidade e estado das validações
 
@@ -83,7 +89,9 @@ pnpm test
 pnpm build
 ```
 
-Na máquina Windows da CDC-004: instalação congelada sem alterar lockfile, lint, typecheck, quatro testes, builds das duas aplicações, validação/geração Prisma, API dev HTTP e web produção HTTP passaram. YAML de CI/Compose foi parseado e revisado estaticamente. Isso não equivale a executar Docker Compose.
+Na implementação inicial Windows da CDC-004: instalação congelada sem alterar lockfile, lint, typecheck, quatro testes, builds das duas aplicações, validação/geração Prisma, API dev HTTP e web produção HTTP passaram. Após a auditoria, a suíte foi ampliada para cobrir isolamento de ambiente, PORT, diagnóstico de banco e geração Prisma reproduzível. YAML de CI/Compose foi parseado e revisado estaticamente. Isso não equivale a executar Docker Compose.
+
+Após as correções, passaram `pnpm install --frozen-lockfile`, `pnpm db:validate`, `pnpm db:generate`, `pnpm lint`, `pnpm typecheck`, `pnpm test` (9 API + 1 web) e `pnpm build`. A suíte passou sem `apps/api/.env` e com arquivo físico sintético contendo PORT inválida e DATABASE_URL sintética. O arquivo foi criado com exclusividade, sem substituir arquivo existente, e removido somente após conferir seu conteúdo conhecido. Também passou typecheck iniciado sem client gerado nem saídas compiladas; o build seguinte reutilizou o client sem regenerar. Testes novos em subdiretórios foram descobertos automaticamente. Limpeza assíncrona e tentativas limitadas de remoção de fixtures tratam bloqueios Windows sem ignorar erros persistentes.
 
 **Adiamento aceito pelo responsável:** a etapa de implementação local da CDC-004 está concluída com esta limitação documentada. Docker não foi encontrado no PATH. Docker Compose, conexão real com PostgreSQL e persistência do volume ainda não foram validados nem aprovados: não foram executados `docker compose config`, inicialização/health do container, persistência do volume ou `db:check` com PostgreSQL real.
 

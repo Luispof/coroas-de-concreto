@@ -15,12 +15,15 @@ A política obrigatória está em [AGENTS.md](../../AGENTS.md). Testes demonstra
 |---|---|---|
 | API unitário | `apps/api/test/*.spec.ts` | `pnpm --filter @cdc/api test` |
 | API HTTP | `apps/api/test/*.e2e-spec.ts` | `pnpm test:e2e` |
+| Scripts Node | `apps/api/test/**/*.test.mjs` | `pnpm --filter @cdc/api test` |
 | Web componente | `apps/web/src/**/*.test.tsx` | `pnpm --filter @cdc/web test` |
 | Todos os testes | Execução sem watch, com falha propagada | `pnpm test` |
 | Qualidade | ESLint e TypeScript nas duas aplicações | `pnpm lint`, `pnpm typecheck` |
 | Build | Artefatos de produção das duas aplicações | `pnpm build` |
 
-Os testes da API são descobertos automaticamente por globs entre aspas interpretados pelo Node 24, incluindo subdiretórios; não manter listas de arquivos nem depender de expansão do shell. Os testes HTTP criam a aplicação com `ignoreEnvFile: true`, fecham a aplicação e restauram o ambiente no teardown. Fixtures sintéticas isoladas verificam separadamente o carregamento normal de `.env` e a precedência do ambiente do processo. Não ler ou sobrescrever arquivos locais com credenciais. O healthcheck deve permanecer independente de PostgreSQL ausente ou inacessível. Não usar `.only`, `.skip`, flags equivalentes ou enfraquecer assertions para ocultar falhas.
+Os testes da API são descobertos automaticamente por globs interpretados pelo Node 24, incluindo subdiretórios; não manter listas de arquivos nem depender de expansão do shell. O runner local remove somente a saída compilada `dist-test` antes de recompilar, evitando executar testes antigos removidos/renomeados. Os testes HTTP criam a aplicação com `ignoreEnvFile: true`, fecham a aplicação e restauram o ambiente no teardown. Fixtures sintéticas isoladas verificam separadamente o carregamento normal de `.env` e a precedência do ambiente do processo. Não ler ou sobrescrever arquivos locais com credenciais. O healthcheck deve permanecer independente de PostgreSQL ausente ou inacessível. Não usar `.only`, `.skip`, flags equivalentes ou enfraquecer assertions para ocultar falhas.
+
+As regressões pós-auditoria incluem PORT ausente/válida/inválida e erro de inicialização, diagnóstico de banco sem arquivo `.env`, precedência de variáveis e mensagens sem credenciais, além de geração Prisma em fixture sem entidades. A fixture Prisma verifica geração inicial, reaproveitamento sem mudanças e regeneração após saída incompleta ou schema alterado; não conecta ao PostgreSQL. Os casos de banco inacessível são testes do diagnóstico de erro, não aprovação de conectividade real.
 
 ## Responsabilidade dos agentes e aceite de PR
 

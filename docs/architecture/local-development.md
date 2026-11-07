@@ -83,7 +83,9 @@ pnpm build
 
 Na máquina Windows da CDC-004: instalação congelada sem alterar lockfile, lint, typecheck, quatro testes, builds das duas aplicações, validação/geração Prisma, API dev HTTP e web produção HTTP passaram. YAML de CI/Compose foi parseado e revisado estaticamente. Isso não equivale a executar Docker Compose.
 
-**Pendências de infraestrutura:** Docker não foi encontrado no PATH. Não foram executados `docker compose config`, inicialização/health do container, persistência do volume ou `db:check` com PostgreSQL real. O encerramento dessas validações depende de Docker disponibilizado pelo responsável ou de PostgreSQL local autorizado. Solicitar decisão antes de considerar a limitação aceita.
+**Adiamento aceito pelo responsável:** a etapa de implementação local da CDC-004 está concluída com esta limitação documentada. Docker não foi encontrado no PATH. Docker Compose, conexão real com PostgreSQL e persistência do volume ainda não foram validados nem aprovados: não foram executados `docker compose config`, inicialização/health do container, persistência do volume ou `db:check` com PostgreSQL real.
+
+A validação real do PostgreSQL é obrigatória antes de implementar funcionalidades dependentes de persistência, incluindo entidades, migrations e consultas. O adiamento não dispensa essa condição. Docker e alterações de infraestrutura local não devem ser instalados ou executados automaticamente; disponibilizar a infraestrutura depende de autorização específica do responsável.
 
 **Pendências remotas:** workflow preparado, sem push/PR autorizado; não houve execução no GitHub nem configuração de required checks. Linux e macOS não foram executados localmente: a matriz CI está preparada para isso. Nenhum check executado permanece falhando; validações não executadas não são declaradas aprovadas.
 

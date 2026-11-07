@@ -6,7 +6,7 @@ Estas decisões não foram aprovadas pela escolha da stack. Registrar a resoluç
 |---|---|---|
 | Hospedagem e topologia | Provedores, orçamento, origem de web/API, proxy ou CORS, TLS, conexão PostgreSQL, cache e observabilidade | Antes do deploy; origem/proxy antes da integração web/API |
 | Estratégia editorial | Quem aprova conteúdo público, fonte autorizada, como carregar/atualizar dados sem API administrativa e como corrigir/remover conteúdo | Antes de carregar conteúdo real |
-| Validação da infraestrutura local | Versões e Compose definidos na CDC-004; falta disponibilizar Docker ou PostgreSQL autorizado para validar conexão e volume | Antes de encerrar a validação de banco do scaffold |
+| Validação da infraestrutura local | Adiamento aceito para concluir a implementação local da CDC-004. Docker Compose, conexão PostgreSQL real e persistência do volume não foram validados nem aprovados; não alterar infraestrutura automaticamente | Validação real do PostgreSQL obrigatória antes de implementar entidades, migrations, consultas ou qualquer funcionalidade dependente de persistência |
 | Execução CI e proteção da main | Workflow definido; publicação e configuração remota exigem autorização, com confirmação dos checks nas três plataformas | Antes de integrar a CDC-004 |
 | Operação de dados | Aplicação de migrations, credenciais com privilégios mínimos, backups e recuperação | Antes de ambiente persistente público |
 

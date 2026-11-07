@@ -79,8 +79,8 @@ Trabalhar em branches curtas por tarefa, com commits pequenos, frequentes e atô
 
 ## Status do Projeto
 
-**CDC-004: scaffold implementado e checks locais aprovados; validação de banco/Docker pendente de infraestrutura e decisão do responsável.**
+**CDC-004: implementação local concluída com adiamento da validação de banco expressamente aceito pelo responsável.** Docker Compose, conexão real com PostgreSQL e persistência do volume ainda não foram validados nem aprovados.
 
 Há duas aplicações mínimas, testes de inicialização/healthcheck e renderização inicial, schema Prisma sem entidades e CI configurado. Não há catálogo, seeds, migrations de negócio, autenticação ou administração.
 
-Antes da próxima implementação: revisão independente do Antigravity, decisão sobre a validação PostgreSQL pendente e autorização própria para publicação/CI remoto. Depois, propor **CDC-005 — Primeiro fluxo público**, seguindo os critérios documentados. Hospedagem e estratégia editorial permanecem pendentes; produção exigirá aprovação explícita e CD com staging separado e recuperação planejada.
+Próxima etapa: auditoria independente do Antigravity antes de autorizar publicação da branch e CI remoto. A validação real do PostgreSQL é obrigatória antes de implementar qualquer funcionalidade dependente de persistência, incluindo entidades, migrations e consultas. Não instalar Docker ou alterar infraestrutura automaticamente. Depois dessas condições, propor **CDC-005 — Primeiro fluxo público**, seguindo os critérios documentados. Hospedagem e estratégia editorial permanecem pendentes; produção exigirá aprovação explícita e CD com staging separado e recuperação planejada.

@@ -26,7 +26,9 @@ Compose contém somente PostgreSQL `18.6-bookworm`, com porta em loopback e volu
 
 ## Consequências
 
-A fundação tem versões rastreáveis e serviços locais mínimos, mas precisa de manutenção de patches e downloads de binários. Geração Prisma e validação de schema não provam conectividade. Docker indisponível impede validar Compose, health do banco e persistência do volume; execução remota/multiplataforma aguarda publicação autorizada. Essas limitações permanecem pendentes de decisão do responsável, sem declarar a CDC-004 encerrada.
+A fundação tem versões rastreáveis e serviços locais mínimos, mas precisa de manutenção de patches e downloads de binários. Geração Prisma e validação de schema não provam conectividade. Docker indisponível impede validar Compose, health do banco e persistência do volume; execução remota/multiplataforma aguarda publicação autorizada.
+
+O responsável aceitou expressamente o adiamento documentado para concluir a etapa de implementação local da CDC-004. Docker Compose, conexão real com PostgreSQL e persistência do volume permanecem não validados e não aprovados. A validação real do PostgreSQL será obrigatória antes de implementar funcionalidades dependentes de persistência, incluindo entidades, migrations e consultas. Esta atualização registra a decisão posterior do responsável; não altera as escolhas de stack nem dispensa a validação futura. Não instalar Docker ou alterar infraestrutura automaticamente. A auditoria independente do Antigravity precede a autorização de publicação; não há autorização para push, PR ou merge.
 
 ## Critérios de revisão
 

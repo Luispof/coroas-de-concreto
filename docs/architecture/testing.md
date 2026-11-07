@@ -20,7 +20,7 @@ A política obrigatória está em [AGENTS.md](../../AGENTS.md). Testes demonstra
 | Qualidade | ESLint e TypeScript nas duas aplicações | `pnpm lint`, `pnpm typecheck` |
 | Build | Artefatos de produção das duas aplicações | `pnpm build` |
 
-Ao adicionar arquivos de teste da API, atualizar a lista explícita nos scripts; ela evita expansão de globs dependente do shell. Os testes HTTP fecham a aplicação e restauram ambiente no teardown. Não usam portas fixas nem banco externo. O healthcheck deve permanecer independente de PostgreSQL ausente ou inacessível. Não usar `.only`, `.skip`, flags equivalentes ou enfraquecer assertions para ocultar falhas.
+Os testes da API são descobertos automaticamente por globs entre aspas interpretados pelo Node 24, incluindo subdiretórios; não manter listas de arquivos nem depender de expansão do shell. Os testes HTTP criam a aplicação com `ignoreEnvFile: true`, fecham a aplicação e restauram o ambiente no teardown. Fixtures sintéticas isoladas verificam separadamente o carregamento normal de `.env` e a precedência do ambiente do processo. Não ler ou sobrescrever arquivos locais com credenciais. O healthcheck deve permanecer independente de PostgreSQL ausente ou inacessível. Não usar `.only`, `.skip`, flags equivalentes ou enfraquecer assertions para ocultar falhas.
 
 ## Responsabilidade dos agentes e aceite de PR
 

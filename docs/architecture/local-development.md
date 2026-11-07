@@ -46,12 +46,14 @@ Scripts de projeto usam ferramentas Node/pnpm, caminhos relativos e não depende
 
 ## Ambientes separados
 
-- **API:** criar manualmente `apps/api/.env` a partir dos nomes em `.env.example`, com valores locais próprios. `ConfigModule` carrega `.env` no diretório da aplicação; comandos pnpm filtrados usam esse diretório. Variáveis do processo têm precedência. A ausência de `.env` e de `DATABASE_URL` não impede o healthcheck.
+- **API:** criar manualmente `apps/api/.env` a partir dos nomes em `.env.example`, com valores locais próprios. `ConfigModule` carrega `.env` no diretório da aplicação durante a criação da aplicação; comandos pnpm filtrados usam esse diretório. Variáveis do processo têm precedência. A ausência de `.env` e de `DATABASE_URL` não impede o healthcheck. Testes E2E desativam explicitamente o carregamento de arquivo sem alterar o padrão da aplicação normal.
 - **Prisma CLI:** `apps/api/prisma.config.ts` resolve explicitamente o `.env` e o schema relativos ao próprio arquivo, usando dotenv sem sobrescrever o ambiente. Validação e geração não exigem conexão. A URL é necessária para operações de banco.
 - **Web:** Next.js carrega seus arquivos de ambiente dentro de `apps/web` pela precedência nativa. A página inicial não requer variáveis. Não copiar variáveis da API nem expor credenciais com `NEXT_PUBLIC_`. `.env.example` não é carregado automaticamente.
 - **Compose:** usa explicitamente `--env-file apps/api/.env`. Variáveis exportadas no shell podem prevalecer; evitar valores de outros projetos. `POSTGRES_*` e `DATABASE_URL` precisam apontar para a mesma instância, porta e credenciais, com encoding de URL quando necessário.
 
 Não há `.env` compartilhado na raiz. Nunca versionar valores reais; arquivos de exemplo contêm somente placeholders.
+
+`PORT` ausente assume 3001. Quando definida, deve conter somente dígitos e representar um inteiro de 1 a 65535. Valor vazio, espaços, frações, texto e valores fora do intervalo causam erro de inicialização; não há fallback para configuração inválida. A porta validada pelo ConfigModule é usada pelo bootstrap. Testes HTTP usam porta efêmera diretamente no servidor de teste, sem permitir `PORT=0` na configuração da aplicação.
 
 ## PostgreSQL opcional para desenvolvimento do scaffold
 

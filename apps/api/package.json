@@ -9,8 +9,8 @@
     "start": "node dist/main.js",
     "lint": "eslint . --max-warnings 0",
     "typecheck": "tsc --project tsconfig.json --noEmit && tsc --project tsconfig.test.json --noEmit",
-    "test": "tsc --project tsconfig.test.json && node --test dist-test/test/health.spec.js dist-test/test/app.e2e-spec.js",
-    "test:e2e": "tsc --project tsconfig.test.json && node --test dist-test/test/app.e2e-spec.js",
+    "test": "tsc --project tsconfig.test.json && node --test \"dist-test/test/**/*.spec.js\" \"dist-test/test/**/*.e2e-spec.js\"",
+    "test:e2e": "tsc --project tsconfig.test.json && node --test \"dist-test/test/**/*.e2e-spec.js\"",
     "db:validate": "prisma validate",
     "db:generate": "prisma generate",
     "db:check": "pnpm db:generate && pnpm build && node --env-file=.env scripts/check-database.mjs"

@@ -20,6 +20,24 @@ coverage/
 !.env.example
 *.pem
 *.key
+*.p12
+*.pfx
+*.crt
+*.cer
+*.p7b
+*.keystore
+*.jks
+
+# Local database snapshots and backups; SQL migrations remain versionable.
+*.dump
+*.backup
+*.bak
+*.sql.gz
+/backups/
+/dumps/
+
+# Local package-manager data; keep the future pnpm lockfile versioned.
+.pnpm-store/
 
 # Logs
 logs/

@@ -21,7 +21,7 @@ O objetivo é criar um produto de alto padrão visual e técnico, mantendo códi
 3. **Zero Credenciais e Ambiente Profissional:**
    - **NUNCA** faça commit de arquivos `.env`, chaves de API, tokens, certificados ou credenciais.
    - **NUNCA** utilize configurações, pacotes internos ou credenciais pertencentes a ambientes profissionais/corporativos.
-4. **Escopo de Diretório:** Opere exclusivamente dentro do diretório raiz deste projeto (`C:\Users\Lu\dev\coroas-de-concreto`).
+4. **Escopo de Diretório:** Opere exclusivamente dentro da raiz do checkout deste repositório, independentemente do sistema operacional ou caminho local. Não acesse materiais privados externos.
 
 ---
 
@@ -37,8 +37,9 @@ O desenvolvimento é orientado por tarefas numeradas no formato `CDC-XXX` (ex.: 
    - Não existe limite de commits por tarefa: faça commit após cada alteração pequena, coerente e validada.
    - Não acumule várias alterações independentes em um único commit e nunca faça commits vazios.
    - Revise o diff e execute as validações pertinentes antes de cada commit.
+   - Revise integralmente o conteúdo preparado com `git diff --cached`, procurando credenciais, dados privados e spoilers antes de cada commit, independentemente do `.gitignore`.
    - Não execute `git push` automaticamente sem autorização explícita ou regra previamente aprovada.
-   - Preserve o histórico (evite `force push` na `main`) e prefira branches de desenvolvimento e Pull Requests para mudanças significativas.
+   - Trabalhe em branches curtas por tarefa e integre por Pull Requests. Preserve os commits atômicos por merge commit; evite squash merge e não reescreva o histórico publicado da `main`.
 5. **Padrão de Commits:** Utilize *Conventional Commits* referenciando o ID da tarefa (`CDC-XXX`):
    - `feat(CDC-XXX): ...`
    - `fix(CDC-XXX): ...`
@@ -53,6 +54,8 @@ O desenvolvimento é orientado por tarefas numeradas no formato `CDC-XXX` (ex.: 
 - **Linguagem Padrão:** TypeScript com tipagem estrita (`strict: true`). Evite `any`; prefira tipos explícitos, interfaces claras e validação de esquemas na fronteira da aplicação.
 - **Frontend (Next.js):** Foco em experiência cinematográfica, performance, acessibilidade, componentização limpa e separação entre componentes de UI e lógica de estado/dados.
 - **Backend (NestJS):** Arquitetura modular com separação clara de responsabilidades (Controllers, Services, Domain/Use Cases, Repositories/DTOs).
+- **Proporcionalidade:** No MVP, use apenas as camadas necessárias. Não crie abstrações genéricas, pacotes compartilhados ou módulos sem uso concreto.
+- **Compatibilidade:** Preserve Windows e macOS; use caminhos relativos, imports com capitalização exata e comandos portáveis. Scripts futuros devem evitar dependência exclusiva de Bash ou PowerShell.
 - **Documentação Arquitetural:**
   - Visões técnicas, fluxos e diagramas devem residir em [`docs/architecture/`](./docs/architecture/).
   - Decisões arquiteturais relevantes devem ser registradas como ADRs em [`docs/adr/`](./docs/adr/).

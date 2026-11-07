@@ -11,23 +11,26 @@ O MVP é um catálogo público de personagens com página individual. Não possu
 - [Decisões pendentes](./pending-decisions.md)
 - [Proteção de conteúdo](./security.md)
 - [Registro de decisões](../adr/README.md)
+- [Desenvolvimento local e versões](./local-development.md)
+- [Estratégia de testes](./testing.md)
+- [CI/CD e proteção da main](./ci-cd.md)
 
-## Monorepo planejado
+## Monorepo inicial — CDC-004
 
 ```text
 apps/
   web/          Next.js + TypeScript
   api/          NestJS + TypeScript
-    prisma/     Schema e migrations
+    prisma/     Schema sem entidades; migrations somente quando necessárias
 docs/
   architecture/
   adr/
 ```
 
-Esta árvore é uma previsão, não uma estrutura já implementada. O workspace pnpm terá um lockfile na raiz. Não criar pacotes compartilhados, orquestradores adicionais ou abstrações genéricas sem necessidade concreta. Versões de Node, pnpm e dependências serão definidas e registradas na tarefa de scaffold; não foram instaladas nesta etapa.
+As duas aplicações e o workspace pnpm estão implementados, com um lockfile na raiz. A web contém somente a página inicial; a API oferece `GET /api/v1/health`, independente de PostgreSQL. O catálogo descrito no contrato do MVP ainda não foi implementado. Não criar pacotes compartilhados, orquestradores adicionais ou abstrações genéricas sem necessidade concreta.
 
 ## Compatibilidade
 
-Windows e macOS são ambientes suportados para desenvolvimento. Usar UTF-8, LF, caminhos relativos e capitalização exata em imports. Comandos futuros devem ser portáveis e não depender exclusivamente de Bash ou PowerShell. Não exigir symlinks criados manualmente. Validar instalação e comandos documentados nos dois sistemas na fundação executável; a CDC-003 valida apenas os arquivos documentais e de padronização.
+Windows e macOS são ambientes suportados para desenvolvimento. Usar UTF-8, LF, caminhos relativos e capitalização exata em imports; SVG permanece texto LF. Não exigir symlinks criados manualmente. A CDC-004 foi validada localmente em Windows; a matriz CI inclui Linux e macOS, com execução remota pendente de publicação autorizada. As limitações de Docker estão em [desenvolvimento local](./local-development.md).
 
 > **Nota de Segurança:** Nenhum documento neste diretório deve conter spoilers confidenciais da crônica ou credenciais de infraestrutura.

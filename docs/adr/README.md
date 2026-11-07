@@ -22,8 +22,9 @@ Decisões aceitas:
 - [0004 — PostgreSQL e Prisma](./0004-postgresql-prisma.md)
 - [0005 — Git e compatibilidade multiplataforma](./0005-git-multiplataforma.md)
 - [0006 — Testes de regressão e CI/CD](./0006-testes-ci-cd.md)
+- [0007 — Ambiente local e versões do scaffold](./0007-ambiente-local-scaffold.md)
 
-As ADRs 0001–0005 refletem a aprovação da CDC-003 e a ADR 0006 registra a política permanente aprovada na CDC-004. O status aceito não comprova execução remota ou encerramento de todas as validações. Novas decisões devem registrar alternativas e critérios de revisão; uma substituição deve vincular o ADR anterior e explicar a mudança.
+As ADRs 0001–0005 refletem a aprovação da CDC-003; 0006 e 0007 registram a política permanente e o ambiente aprovados na CDC-004. O status aceito não comprova execução remota ou encerramento de todas as validações. Novas decisões devem registrar alternativas e critérios de revisão; uma substituição deve vincular o ADR anterior e explicar a mudança.
 
 ## Template Base
 
